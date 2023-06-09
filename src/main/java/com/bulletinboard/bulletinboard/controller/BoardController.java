@@ -25,7 +25,7 @@ public class BoardController {
         //BoardDTO를 Board(entity) 형태로 변환하여 DB에 저장헤야 한다.
 //        BoardService.saveBoard(boardDTO);
 //        Board board = BoardService.saveBoard(boardDTO);
-
+//test
         return "success";
     }
 
