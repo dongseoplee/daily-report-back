@@ -3,10 +3,12 @@ package com.bulletinboard.bulletinboard.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="board_data")
+@Table(name = "board_data")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    private String name;
+    //    private String name;
 //    private String email;
 //    private String message;
     private String username;
@@ -28,5 +30,7 @@ public class Board {
     @Temporal(TemporalType.DATE)
     private Date yyyymmdd;
 
+//    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
+//    private List<Comment> commentList = new ArrayList<>();
 
 }
