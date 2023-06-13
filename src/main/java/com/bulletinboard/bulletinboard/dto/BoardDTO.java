@@ -52,7 +52,6 @@ public class BoardDTO {
     private String title;
     private String content;
     private String img_url;
-
     private Date yyyymmdd;
 
     public BoardDTO(String username, String title, String content, String img_url, Date yyyymmdd) {

@@ -1,8 +1,10 @@
 package com.bulletinboard.bulletinboard.controller;
 
 import com.bulletinboard.bulletinboard.domain.Board;
+import com.bulletinboard.bulletinboard.domain.Comment;
 import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.service.BoardService;
+import com.bulletinboard.bulletinboard.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @PostMapping("/board") //프론트에서 넘어온 데이터를 DTO 객체로 받는다.
     public String boardPost(BoardDTO boardDTO) {
@@ -40,4 +43,21 @@ public class BoardController {
     public List<Board> boardGetId(@PathVariable("id") Long boardId) {
         return boardService.getBoardsById(boardId);
     };
+
+    //페이지네이션 api 생성
+    @GetMapping("/board/pagination") //같은 GetMapping에 대한 메소드는 하나뿐 이어야한다.
+    public List<Board> boardGetPagination(@RequestParam int page, @RequestParam int pageSize) {
+        return boardService.getBoardsPagination(page, pageSize);
+    }
+    @GetMapping("/board/comment/{id}") //board id로 댓글 검색
+    public List<Comment> commentGetId(@PathVariable("id") Long board_id) {
+        return commentService.getCommentsByBoardId(board_id);
+    }
+
+    @GetMapping("/board/comment")
+    public List<Comment> commentGet() {
+        //Board는 엔티티이며 Board의 자료형을 가지는 List를 반환값으로 설정한다.
+        //서비스계층에서 레포지토리 선언하고 선언한 레포지토리를 이용해서 함수 생성하고 반환값 도출한다.
+        return commentService.getComments();
+    }
 }

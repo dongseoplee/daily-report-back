@@ -24,6 +24,10 @@ public class BoardService {
         return boardRepository.findAllById(boardId);
     }
 
+    public List<Board> getBoardsPagination(int page, int pageSize) {
+        return boardRepository.findBoardByPagination(page, pageSize);
+    }
+
 //    public List<Board> getBoardsByName() {
 //        return boardRepository.findAllByName();
 //    }
@@ -38,10 +42,11 @@ public class BoardService {
 //        board.setName(boardDTO.getName());
 //        board.setEmail(boardDTO.getEmail());
 //        board.setMessage(boardDTO.getMessage());
-//        board.setUsername(boardDTO.getUsername());
-//        board.setTitle(boardDTO.getTitle());
-//        board.setContent(boardDTO.getContent());
-//        board.setImg_url(boardDTO.getImg_url());
+        board.setUsername(boardDTO.getUsername());
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        board.setImg_url(boardDTO.getImg_url());
+        board.setYyyymmdd(boardDTO.getYyyymmdd());
 //        board.setDate_(boardDTO.getDate_());
 
         return board;
