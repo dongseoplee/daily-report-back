@@ -14,5 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     public List<Board> findAllById(Long id);
 
     @Query(value = "SELECT * FROM board_data WHERE id >= (:page * :pageSize)-(:pageSize-1) AND id <= (:page * :pageSize)", nativeQuery = true)
+//    @Query(value = "SELECT * FROM board_data ORDER BY yyyymmdd DESC", nativeQuery = true)
     public List<Board> findBoardByPagination(@Param("page") int page, @Param("pageSize") int pageSize);
 }

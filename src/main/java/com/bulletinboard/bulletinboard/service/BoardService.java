@@ -33,7 +33,7 @@ public class BoardService {
 //    }
     public Board saveBoard(BoardDTO boardDTO) {
         Board board = convertToEntity(boardDTO);
-
+//        System.out.println("boardRepository saveBoard" + board);
         return boardRepository.save(board);
     }
 
@@ -47,6 +47,7 @@ public class BoardService {
         board.setContent(boardDTO.getContent());
         board.setImg_url(boardDTO.getImg_url());
         board.setYyyymmdd(boardDTO.getYyyymmdd());
+        board.setImage(boardDTO.getImage());
 //        board.setDate_(boardDTO.getDate_());
 
         return board;

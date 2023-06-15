@@ -26,6 +26,7 @@ public class Board {
     private String title;
     private String content;
     private String img_url;
+    private String image;
 
     @Temporal(TemporalType.DATE)
     private Date yyyymmdd;
