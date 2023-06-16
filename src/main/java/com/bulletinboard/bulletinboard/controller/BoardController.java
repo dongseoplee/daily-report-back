@@ -3,6 +3,7 @@ package com.bulletinboard.bulletinboard.controller;
 import com.bulletinboard.bulletinboard.domain.Board;
 import com.bulletinboard.bulletinboard.domain.Comment;
 import com.bulletinboard.bulletinboard.dto.BoardDTO;
+import com.bulletinboard.bulletinboard.dto.CommentDTO;
 import com.bulletinboard.bulletinboard.service.BoardService;
 import com.bulletinboard.bulletinboard.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,16 @@ public class BoardController {
 //test
         return "success";
     }
+
+    @PostMapping("/board/comment")
+    public String commentPost(CommentDTO commentDTO) {
+        System.out.println(commentDTO);
+        commentService.saveComment(commentDTO);
+
+        return "success";
+
+    }
+
 
     @GetMapping("/board")
     public List<Board> boardGet() {

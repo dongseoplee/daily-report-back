@@ -33,10 +33,10 @@ public class CommentService {
     public Comment convertToEntity(CommentDTO commentDTO) {
         Comment comment = new Comment();
 
-//        외래키 set get 함수 필요
-        comment.setUsername(comment.getUsername());
-        comment.setContent(comment.getContent());
-        comment.setYyyymmdd(comment.getYyyymmdd());
+        comment.setBoard_id(commentDTO.getBoard_id());
+        comment.setUsername(commentDTO.getUsername());
+        comment.setContent(commentDTO.getContent());
+        comment.setYyyymmdd(commentDTO.getYyyymmdd());
 
         return comment;
     }
