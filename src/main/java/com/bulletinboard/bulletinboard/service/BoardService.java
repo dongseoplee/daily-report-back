@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class BoardService {
-    private final BoardRepository boardRepository;
+    private final BoardRepository boardRepository; //선언 후 생성자 만들어야 함
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;

@@ -4,8 +4,10 @@ import com.bulletinboard.bulletinboard.domain.Board;
 import com.bulletinboard.bulletinboard.domain.Comment;
 import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.dto.CommentDTO;
+import com.bulletinboard.bulletinboard.dto.UserDTO;
 import com.bulletinboard.bulletinboard.service.BoardService;
 import com.bulletinboard.bulletinboard.service.CommentService;
+import com.bulletinboard.bulletinboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CommentService commentService;
-
+    private final UserService userService;
     @PostMapping("/board") //프론트에서 넘어온 데이터를 DTO 객체로 받는다.
     public String boardPost(BoardDTO boardDTO) {
         System.out.println(boardDTO);
@@ -40,6 +42,15 @@ public class BoardController {
 
         return "success";
 
+    }
+
+    //프론트에서 Post 할때 FormData()로 넘겨라
+    @PostMapping("/auth/signup")
+    public String signUpPost(UserDTO userDTO) {
+        System.out.println(userDTO);
+        userService.saveUser(userDTO);
+
+        return "success";
     }
 
 
