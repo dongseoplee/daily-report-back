@@ -13,6 +13,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //올바른 이메일 아이디, 비밀번호 인지 확인
+    public boolean validateUser(String email, String password) {
+        User user = userRepository.findByEmail(email); //id, email, password, username
+        if (user != null) {
+            return user.getPassword().equals(password); //passsword 맞는지 확인
+
+        }
+        return false; //user가 null이면 false return
+    }
     public User saveUser(UserDTO userDTO) {
         User user = convertToEntity(userDTO);
         return userRepository.save(user);

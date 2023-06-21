@@ -53,6 +53,22 @@ public class BoardController {
         return "success";
     }
 
+    @PostMapping("login")
+    public String loginPost(UserDTO userDTO) {
+        String email = userDTO.getEmail();
+        String password = userDTO.getPassword();
+        System.out.println(email + password);
+        //post method로 받은 이메일 아이디, 비밀번호를 데이터베이스 user테이블에 저장된 값과 비교
+        boolean isValid = userService.validateUser(email, password);
+        System.out.println("isValid: " + isValid);
+        if (isValid) {
+            //token generate
+            return "success"; //token
+        } else {
+            return "Invalid email or password";
+        }
+    }
+
 
     @GetMapping("/board")
     public List<Board> boardGet() {
