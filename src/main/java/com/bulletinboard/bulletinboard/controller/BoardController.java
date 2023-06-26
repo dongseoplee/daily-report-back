@@ -63,7 +63,9 @@ public class BoardController {
         System.out.println("isValid: " + isValid);
         if (isValid) {
             //token generate
-            return "success"; //token
+            System.out.println(userService.getToken(email));
+            return userService.getToken(email);
+//            return "success"; //token
         } else {
             return "Invalid email or password";
         }
