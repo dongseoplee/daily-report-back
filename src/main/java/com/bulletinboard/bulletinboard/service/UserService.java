@@ -3,6 +3,8 @@ package com.bulletinboard.bulletinboard.service;
 import com.bulletinboard.bulletinboard.domain.User;
 import com.bulletinboard.bulletinboard.dto.UserDTO;
 import com.bulletinboard.bulletinboard.repository.UserRepository;
+import com.bulletinboard.bulletinboard.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +23,16 @@ public class UserService {
 
         }
         return false; //user가 null이면 false return
+    }
+
+    @Value("${jwt.secret}")
+    private String secretKey;
+
+    private Long expiredMs = 1000 * 60 * 60l; //1시간
+
+
+    public String getToken(String email) {
+        return JwtUtils.generateToken(email, secretKey, expiredMs);
     }
     public User saveUser(UserDTO userDTO) {
         User user = convertToEntity(userDTO);
