@@ -37,6 +37,7 @@ public class CommentService {
         comment.setUsername(commentDTO.getUsername());
         comment.setContent(commentDTO.getContent());
         comment.setYyyymmdd(commentDTO.getYyyymmdd());
+        comment.setEmail(commentDTO.getEmail());
 
         return comment;
     }

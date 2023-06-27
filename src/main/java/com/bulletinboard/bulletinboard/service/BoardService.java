@@ -48,6 +48,7 @@ public class BoardService {
         board.setImg_url(boardDTO.getImg_url());
         board.setYyyymmdd(boardDTO.getYyyymmdd());
         board.setImage(boardDTO.getImage());
+        board.setEmail(boardDTO.getEmail());
 //        board.setDate_(boardDTO.getDate_());
 
         return board;

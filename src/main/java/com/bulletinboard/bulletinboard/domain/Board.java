@@ -27,6 +27,7 @@ public class Board {
     private String content;
     private String img_url;
     private String image;
+    private String email;
 
     @Temporal(TemporalType.DATE)
     private Date yyyymmdd;
