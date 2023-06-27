@@ -27,6 +27,7 @@ public class Comment {
 
     private String username;
     private String content;
+    private String email;
 
     @Temporal(TemporalType.DATE)
     private Date yyyymmdd;

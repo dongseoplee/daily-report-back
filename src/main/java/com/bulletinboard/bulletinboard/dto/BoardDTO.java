@@ -21,13 +21,15 @@ public class BoardDTO {
     private String img_url;
     private Date yyyymmdd;
     private String image;
+    private String email;
 
-    public BoardDTO(String username, String title, String content, String img_url, Date yyyymmdd, String image) {
+    public BoardDTO(String username, String title, String content, String img_url, Date yyyymmdd, String image, String email) {
         this.username = username;
         this.title = title;
         this.content = content;
         this.img_url = img_url;
         this.yyyymmdd = yyyymmdd;
         this.image = image;
+        this.email = email;
     }
 }

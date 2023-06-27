@@ -17,13 +17,15 @@ public class CommentDTO {
     private String username;
 
     private String content;
+    private String email;
 
     private Date yyyymmdd;
 
-    public CommentDTO(Long board_id, String username, String content, Date yyyymmdd) {
+    public CommentDTO(Long board_id, String username, String content, Date yyyymmdd, String email) {
         this.username = username;
         this.content = content;
         this.yyyymmdd = yyyymmdd;
         this.board_id = board_id;
+        this.email = email;
     }
 }
