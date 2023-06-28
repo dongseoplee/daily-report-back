@@ -9,8 +9,13 @@ import com.bulletinboard.bulletinboard.service.BoardService;
 import com.bulletinboard.bulletinboard.service.CommentService;
 import com.bulletinboard.bulletinboard.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
@@ -85,9 +90,13 @@ public class BoardController {
     };
 
     //페이지네이션 api 생성
-    @GetMapping("/board/pagination") //같은 GetMapping에 대한 메소드는 하나뿐 이어야한다.
-    public List<Board> boardGetPagination(@RequestParam int page, @RequestParam int pageSize) {
-        return boardService.getBoardsPagination(page, pageSize);
+//    @GetMapping("/board/pagination") //같은 GetMapping에 대한 메소드는 하나뿐 이어야한다.
+//    public List<Board> boardGetPagination(@RequestParam int page, @RequestParam int pageSize) {
+//        return boardService.getBoardsPagination(page, pageSize);
+//    }
+    @GetMapping("/board/pagination")
+    public Page<Board> boardGetPagination(@PageableDefault(page = 0, size = 4, sort ="id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return boardService.getBoardsPagination(pageable);
     }
     @GetMapping("/board/comment/{id}") //board id로 댓글 검색
     public List<Comment> commentGetId(@PathVariable("id") Long board_id) {
