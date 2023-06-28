@@ -5,6 +5,8 @@ import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,9 +26,12 @@ public class BoardService {
         return boardRepository.findAllById(boardId);
     }
 
-    public List<Board> getBoardsPagination(int page, int pageSize) {
-        return boardRepository.findBoardByPagination(page, pageSize);
+    public Page<Board> getBoardsPagination(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
+//    public List<Board> getBoardsPagination(int page, int pageSize) {
+//        return boardRepository.findBoardByPagination(page, pageSize);
+//    }
 
 //    public List<Board> getBoardsByName() {
 //        return boardRepository.findAllByName();
