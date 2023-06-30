@@ -42,6 +42,10 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public void deleteBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
+    }
+
     public Board convertToEntity(BoardDTO boardDTO) {
         Board board = new Board();
 //        board.setName(boardDTO.getName());

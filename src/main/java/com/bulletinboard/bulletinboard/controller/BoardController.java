@@ -39,6 +39,12 @@ public class BoardController {
 //test
         return "success";
     }
+    @DeleteMapping("/board/{board_id}")
+    public String deleteBoard(@PathVariable("board_id") Long boardId) {
+        boardService.deleteBoard(boardId);
+        return "success";
+
+    }
 
     @PostMapping("/board/comment")
     public String commentPost(CommentDTO commentDTO) {
@@ -94,6 +100,7 @@ public class BoardController {
 //    public List<Board> boardGetPagination(@RequestParam int page, @RequestParam int pageSize) {
 //        return boardService.getBoardsPagination(page, pageSize);
 //    }
+
     @GetMapping("/board/pagination")
     public Page<Board> boardGetPagination(@PageableDefault(page = 0, size = 4, sort ="id", direction = Sort.Direction.DESC) Pageable pageable) {
         return boardService.getBoardsPagination(pageable);
