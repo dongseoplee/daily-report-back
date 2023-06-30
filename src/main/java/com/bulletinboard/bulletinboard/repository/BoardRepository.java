@@ -15,6 +15,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     public List<Board> findAllById(Long id);
 
+    public void deleteById(Long id);
+
 //    public Page<Board> findAllByIdDesc(Pageable pageable);
 
 //    @Query(value = "SELECT * FROM board_data WHERE id >= (:page * :pageSize)-(:pageSize-1) AND id <= (:page * :pageSize)", nativeQuery = true)
