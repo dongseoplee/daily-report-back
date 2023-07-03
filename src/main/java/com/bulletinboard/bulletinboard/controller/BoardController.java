@@ -46,6 +46,12 @@ public class BoardController {
 
     }
 
+    @DeleteMapping("/comment/{id}")
+    public String deleteComment(@PathVariable("id") Long commentId) {
+        commentService.deleteComment(commentId);
+        return "success";
+    }
+
     @PostMapping("/board/comment")
     public String commentPost(CommentDTO commentDTO) {
         System.out.println(commentDTO);

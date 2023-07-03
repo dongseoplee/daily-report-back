@@ -30,6 +30,10 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
     public Comment convertToEntity(CommentDTO commentDTO) {
         Comment comment = new Comment();
 
