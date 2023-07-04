@@ -5,6 +5,7 @@ import com.bulletinboard.bulletinboard.domain.Comment;
 import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.dto.CommentDTO;
 import com.bulletinboard.bulletinboard.dto.UserDTO;
+import com.bulletinboard.bulletinboard.repository.BoardRepository;
 import com.bulletinboard.bulletinboard.service.BoardService;
 import com.bulletinboard.bulletinboard.service.CommentService;
 import com.bulletinboard.bulletinboard.service.UserService;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -26,6 +28,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final BoardRepository boardRepository;
     private final CommentService commentService;
     private final UserService userService;
     @PostMapping("/board") //프론트에서 넘어온 데이터를 DTO 객체로 받는다.
@@ -39,6 +42,21 @@ public class BoardController {
 //test
         return "success";
     }
+
+    @PutMapping("/edit-board/{board_id}")
+    public String boardPut(@PathVariable("board_id") Long board_id, BoardDTO boardDTO) {
+//        System.out.println(boardDTO);
+        Optional<Board> optionalBoard = boardRepository.findById(board_id);
+        Board board = optionalBoard.get();
+//        System.out.println(board.getTitle());
+//        System.out.println(board.getContent());
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        boardRepository.save(board);
+
+        return "success";
+    }
+
     @DeleteMapping("/board/{board_id}")
     public String deleteBoard(@PathVariable("board_id") Long boardId) {
         boardService.deleteBoard(boardId);
@@ -122,4 +140,6 @@ public class BoardController {
         //서비스계층에서 레포지토리 선언하고 선언한 레포지토리를 이용해서 함수 생성하고 반환값 도출한다.
         return commentService.getComments();
     }
+
+
 }
