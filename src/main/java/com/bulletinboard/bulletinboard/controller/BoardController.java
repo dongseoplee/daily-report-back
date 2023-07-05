@@ -6,6 +6,7 @@ import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.dto.CommentDTO;
 import com.bulletinboard.bulletinboard.dto.UserDTO;
 import com.bulletinboard.bulletinboard.repository.BoardRepository;
+import com.bulletinboard.bulletinboard.repository.CommentRepository;
 import com.bulletinboard.bulletinboard.service.BoardService;
 import com.bulletinboard.bulletinboard.service.CommentService;
 import com.bulletinboard.bulletinboard.service.UserService;
@@ -29,6 +30,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
     private final CommentService commentService;
     private final UserService userService;
     @PostMapping("/board") //프론트에서 넘어온 데이터를 DTO 객체로 받는다.
@@ -46,13 +48,24 @@ public class BoardController {
     @PutMapping("/edit-board/{board_id}")
     public String boardPut(@PathVariable("board_id") Long board_id, BoardDTO boardDTO) {
 //        System.out.println(boardDTO);
-        Optional<Board> optionalBoard = boardRepository.findById(board_id);
-        Board board = optionalBoard.get();
 //        System.out.println(board.getTitle());
 //        System.out.println(board.getContent());
+        Optional<Board> optionalBoard = boardRepository.findById(board_id);
+        Board board = optionalBoard.get();
         board.setTitle(boardDTO.getTitle());
         board.setContent(boardDTO.getContent());
+        board.setImage(boardDTO.getImage());
         boardRepository.save(board);
+
+        return "success";
+    }
+
+    @PutMapping("/edit-comment/{comment_id}")
+    public String commentPut(@PathVariable("comment_id") Long comment_id, CommentDTO commentDTO) {
+        Optional<Comment> optionalComment = commentRepository.findById(comment_id);
+        Comment comment = optionalComment.get(); //get()을 사용해야함
+        comment.setContent(commentDTO.getContent());
+        commentRepository.save(comment);
 
         return "success";
     }
