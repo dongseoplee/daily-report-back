@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,9 @@ public class BoardController {
     private final CommentRepository commentRepository;
     private final CommentService commentService;
     private final UserService userService;
+
+
+
     @PostMapping("/board") //프론트에서 넘어온 데이터를 DTO 객체로 받는다.
     public String boardPost(BoardDTO boardDTO) {
         System.out.println(boardDTO);
@@ -132,16 +136,33 @@ public class BoardController {
         return boardService.getBoardsById(boardId);
     };
 
-    //페이지네이션 api 생성
-//    @GetMapping("/board/pagination") //같은 GetMapping에 대한 메소드는 하나뿐 이어야한다.
-//    public List<Board> boardGetPagination(@RequestParam int page, @RequestParam int pageSize) {
-//        return boardService.getBoardsPagination(page, pageSize);
+    // Pageable을 사용한 페이지네이션
+//    @GetMapping("/board/pagination")
+//    public Page<Board> boardGetPagination(@PageableDefault(page = 0, size = 4, sort ="id", direction = Sort.Direction.DESC) Pageable pageable) {
+//        StopWatch stopWatch = new StopWatch();
+//        stopWatch.start();
+//
+//        Page<Board> result = boardService.getBoardsPagination(pageable);
+//        stopWatch.stop();
+//        System.out.println("Execution time in milliseconds: " + stopWatch.getTotalTimeMillis());
+//        return result;
+////        return boardService.getBoardsPagination(pageable);
+//
 //    }
 
+    // LIMIT, OFFSET을 사용한 페이지네이션
     @GetMapping("/board/pagination")
-    public Page<Board> boardGetPagination(@PageableDefault(page = 0, size = 4, sort ="id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return boardService.getBoardsPagination(pageable);
+    public List<Board> boardGetPagination(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<Board> result = boardService.getBoardsPagination(page, size);
+        stopWatch.stop();
+        System.out.println("Execution time in milliseconds: " + stopWatch.getTotalTimeMillis());
+        return result;
     }
+
+
+
     @GetMapping("/board/comment/{id}") //board id로 댓글 검색
     public List<Comment> commentGetId(@PathVariable("id") Long board_id) {
         return commentService.getCommentsByBoardId(board_id);

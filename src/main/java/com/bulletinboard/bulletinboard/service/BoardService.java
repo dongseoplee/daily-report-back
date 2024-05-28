@@ -3,6 +3,7 @@ package com.bulletinboard.bulletinboard.service;
 import com.bulletinboard.bulletinboard.domain.Board;
 import com.bulletinboard.bulletinboard.dto.BoardDTO;
 import com.bulletinboard.bulletinboard.repository.BoardRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,17 @@ public class BoardService {
         return boardRepository.findAllById(boardId);
     }
 
-    public Page<Board> getBoardsPagination(Pageable pageable) {
-        return boardRepository.findAll(pageable);
-    }
-//    public List<Board> getBoardsPagination(int page, int pageSize) {
-//        return boardRepository.findBoardByPagination(page, pageSize);
+    // [1] Pageable을 사용한 페이지네이션
+//    public Page<Board> getBoardsPagination(Pageable pageable) {
+//        return boardRepository.findAll(pageable);
 //    }
+
+    // [2] LIMIT, OFFSET을 사용한 페이지네이션
+    public List<Board> getBoardsPagination(int page, int size) {
+        int LIMIT = size;
+        int OFFSET = page*size;
+        return boardRepository.findBoardByPagination(LIMIT, OFFSET);
+    }
 
 //    public List<Board> getBoardsByName() {
 //        return boardRepository.findAllByName();
