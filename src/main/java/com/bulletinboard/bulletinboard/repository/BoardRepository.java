@@ -17,10 +17,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     public void deleteById(Long id);
 
-//    public Page<Board> findAllByIdDesc(Pageable pageable);
+    @Query(value = "SELECT * FROM board_data ORDER BY id DESC LIMIT :limit OFFSET :offset", nativeQuery = true)
+    public List<Board> findBoardByPagination(@Param("limit") int limit, @Param("offset") int offset);
 
-//    @Query(value = "SELECT * FROM board_data WHERE id >= (:page * :pageSize)-(:pageSize-1) AND id <= (:page * :pageSize)", nativeQuery = true)
-//    @Query(value = "SELECT * FROM board_data ORDER BY yyyymmdd DESC", nativeQuery = true)
-//    @Query(value = "SELECT *, ROW_NUMBER() OVER(ORDER BY yyyymmdd desc) as rownum limit pageSize offset pageSize * (page-1)", nativeQuery = true)
-//    public List<Board> findBoardByPagination(@Param("page") int page, @Param("pageSize") int pageSize);
+
 }
